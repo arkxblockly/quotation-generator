@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Default dates
     document.getElementById('quotationDate').value = getTodayDate();
     document.getElementById('validityDate').value = getTodayDate();
+    document.getElementById('documentType').addEventListener('change', updateDocumentType);
+    updateDocumentType();
 
     // Default notes from settings
     if (settings && settings.notes) {
@@ -134,12 +136,23 @@ function reindex() {
     });
 }
 
+// ---------- Document type ----------
+function updateDocumentType() {
+    var type = document.getElementById('documentType').value;
+    var isInvoice = type === 'INVOICE';
+    document.getElementById('documentNumberLabel').textContent = (isInvoice ? 'Invoice' : 'Quotation') + ' ID *';
+    document.getElementById('quotationNumber').placeholder = isInvoice ? 'e.g. INV-2026-001' : 'e.g. QT-2026-001';
+    document.getElementById('pageDocumentTitle').textContent = 'New ' + (isInvoice ? 'Invoice' : 'Quotation');
+    document.title = 'Create ' + (isInvoice ? 'Invoice' : 'Quotation') + ' - Invoice Generator';
+}
+
 // ---------- Preview ----------
 function previewQuotation() {
+    var documentType = document.getElementById('documentType').value;
     var qNum = document.getElementById('quotationNumber').value.trim();
     var cName = document.getElementById('customerName').value.trim();
 
-    if (!qNum) { showToast('Please enter a quotation ID.', 'danger'); return; }
+    if (!qNum) { showToast('Please enter a ' + (documentType === 'INVOICE' ? 'invoice' : 'quotation') + ' ID.', 'danger'); return; }
     if (!cName) { showToast('Please enter the customer name.', 'danger'); return; }
 
     var rows = document.querySelectorAll('#itemsBody tr');
@@ -153,7 +166,7 @@ function previewQuotation() {
         quotationNumber: qNum,
         quotationDate: document.getElementById('quotationDate').value,
         validityDate: document.getElementById('validityDate').value,
-        docType: 'QUOTATION',
+        docType: documentType,
         docLabel: 'ORIGINAL FOR RECIPIENT',
         customerName: cName,
         customerCompany: document.getElementById('customerCompany').value.trim(),
@@ -200,8 +213,8 @@ function clearForm() {
     document.getElementById('quotationNumber').value = '';
     document.getElementById('quotationDate').value = getTodayDate();
     document.getElementById('validityDate').value = getTodayDate();
-    document.getElementById('docType').value = 'QUOTATION';
-    document.getElementById('docLabel').value = 'ORIGINAL FOR RECIPIENT';
+    document.getElementById('documentType').value = 'QUOTATION';
+    updateDocumentType();
     document.getElementById('customerName').value = '';
     document.getElementById('customerCompany').value = '';
     document.getElementById('notes').value = '';

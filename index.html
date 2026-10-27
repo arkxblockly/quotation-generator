@@ -16,23 +16,29 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-sm">
+    <nav class="navbar navbar-expand-md">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <i class="bi bi-receipt-cutoff"></i> Quotation Gen
+                <i class="bi bi-receipt-cutoff"></i> Invoice &amp; Quotation
             </a>
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.html"><i class="bi bi-plus-circle"></i> Create</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="settings.html"><i class="bi bi-gear"></i> Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-logout" href="javascript:void(0)" onclick="Auth.logout()" title="Logout"><i
-                            class="bi bi-box-arrow-right"></i> Logout</a>
-                </li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto align-items-md-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html"><i class="bi bi-plus-circle"></i> Create</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html"><i class="bi bi-gear"></i> Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-logout" href="javascript:void(0)" onclick="Auth.logout()" title="Logout"><i
+                                class="bi bi-box-arrow-right"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -47,7 +53,7 @@
 
         <!-- Page header -->
         <div class="page-header">
-            <h4><i class="bi bi-file-earmark-text"></i> New Quotation</h4>
+            <h4><i class="bi bi-file-earmark-text"></i> <span id="pageDocumentTitle">New Quotation</span></h4>
         </div>
 
         <!-- Document details -->
@@ -55,15 +61,22 @@
             <div class="card-header">Document Details</div>
             <div class="card-body">
                 <div class="row g-3">
-                    <div class="col-md-4 col-sm-6">
-                        <label class="form-label" for="quotationNumber">Quotation ID *</label>
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label" for="documentType">Create as</label>
+                        <select class="form-select" id="documentType">
+                            <option value="QUOTATION">Quotation</option>
+                            <option value="INVOICE">Invoice</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label" id="documentNumberLabel" for="quotationNumber">Quotation ID *</label>
                         <input type="text" class="form-control" id="quotationNumber" placeholder="e.g. QT-2026-001" required>
                     </div>
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-md-3 col-sm-6">
                         <label class="form-label" for="quotationDate">Date</label>
                         <input type="date" class="form-control" id="quotationDate">
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-3 col-sm-6">
                         <label class="form-label" for="validityDate">Validity</label>
                         <input type="date" class="form-control" id="validityDate">
                     </div>

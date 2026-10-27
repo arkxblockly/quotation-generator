@@ -45,6 +45,13 @@ body {
     color: var(--primary) !important;
     background-color: var(--primary-light);
 }
+.navbar-toggler {
+    border-color: var(--border);
+    padding: .35rem .55rem;
+}
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(26,115,232,.12);
+}
 
 /* ===== Cards ===== */
 .card {
@@ -566,7 +573,8 @@ body {
         font-size: 1.05rem;
     }
     .navbar-brand {
-        font-size: 1rem;
+        font-size: .9rem;
+        max-width: calc(100% - 3.5rem);
     }
     .q-company-name { font-size: 11pt; }
     .q-totals-tbl .grand td { font-size: 10pt; }
@@ -634,6 +642,19 @@ body {
     .items-table tbody td:nth-child(8) {
         grid-column: 1 / -1;
         justify-self: end;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar .navbar-collapse {
+        flex-basis: 100%;
+    }
+    .navbar .navbar-nav {
+        align-items: stretch;
+        padding-top: .35rem;
+    }
+    .navbar .nav-link {
+        padding: .65rem .75rem !important;
     }
 }
 

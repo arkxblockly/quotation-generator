@@ -19,8 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function render(s, q) {
     // -- Document header --
-    setText('docType', q.docType || 'QUOTATION');
+    var documentType = q.docType || 'QUOTATION';
+    var documentName = documentType === 'INVOICE' ? 'Invoice' : 'Quotation';
+    setText('docType', documentType);
     setText('docLabel', q.docLabel || 'ORIGINAL FOR RECIPIENT');
+    setText('documentNumberLabel', documentName + ' ID:');
+    setText('documentDateLabel', documentName + ' Date:');
+    document.title = documentName + ' ' + (q.quotationNumber || 'Preview');
 
     // -- Company --
     setText('companyName', s.companyName || '');
