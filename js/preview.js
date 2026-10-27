@@ -37,7 +37,6 @@ function render(s, q) {
 
     // -- Meta --
     setText('quotationNumber', q.quotationNumber);
-    setText('footerQuotationNumber', 'Quotation #' + q.quotationNumber);
     setText('quotationDate', formatDate(q.quotationDate));
     setText('validityDate', formatDate(q.validityDate));
 
@@ -84,9 +83,8 @@ function render(s, q) {
     setText('totalMRP', formatCurrency(totalMRP));
     setText('totalDiscount', formatCurrency(totalDiscount));
     setText('grandTotal', formatCurrency(totalAmt));
-    var totalQty = q.totalQty || q.items.reduce(function (sum, item) { return sum + (Number(item.qty) || 0); }, 0);
-    setText('itemCount', 'Items: ' + q.items.length + '  |  Total quantity: ' + totalQty);
-    setText('amountWords', 'Amount in words: ' + numberToWords(totalAmt));
+    setText('itemCount', 'Total Items / Qty : ' + q.items.length + ' / ' + q.totalQty);
+    setText('amountWords', 'Total amount (in words): ' + numberToWords(totalAmt));
 
     // -- Footer: Bank --
     if (s.bankName || s.accountHolder || s.accountNumber || s.ifscCode || s.branch) {

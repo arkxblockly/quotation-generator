@@ -234,7 +234,7 @@ body {
     min-height: 297mm;
     background: #fff;
     margin: 0 auto;
-    padding: 14mm 16mm 10mm;
+    padding: 7mm 8mm 6mm;
     box-shadow: 0 2px 12px rgba(0,0,0,.18);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     font-size: 9.5pt;
@@ -252,7 +252,7 @@ body {
 .q-title {
     font-size: 13pt;
     color: var(--primary);
-    font-style: italic;
+    font-style: normal;
     font-weight: 600;
     letter-spacing: 3.5px;
     text-transform: uppercase;
@@ -323,27 +323,46 @@ body {
 .q-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 8.5pt;
+    font-size: 8pt;
+    line-height: 1.35;
 }
 .q-table thead {
-    background: var(--primary);
-    color: #fff;
+    background: #f1f6ff;
+    color: #202124;
 }
 .q-table thead th {
-    padding: 5px 7px;
-    font-weight: 500;
-    border: 1px solid var(--primary);
+    padding: 4px 5px;
+    font-weight: 700;
+    font-size: 7.5pt;
+    white-space: nowrap;
+    border: 0;
+    border-top: 1.5px solid var(--primary);
+    border-bottom: 1px solid var(--primary);
 }
 .q-table tbody td {
-    padding: 6px 7px;
-    border: 1px solid #ddd;
+    padding: 4px 5px;
+    border: 0;
+    border-bottom: 1px solid #a8c3e8;
     vertical-align: top;
 }
+.q-table tbody tr:nth-child(even) {
+    background-color: #f4f5f6;
+}
+.q-table tbody tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.q-table tbody td:first-child {
+    text-align: center;
+}
+.q-table tbody td:nth-last-child(-n+3) {
+    white-space: nowrap;
+}
 .q-table .desc-text {
-    font-size: 8pt;
-    color: #444;
+    font-size: 7.7pt;
+    color: #343a40;
     margin-top: 2px;
-    line-height: 1.45;
+    line-height: 1.4;
 }
 
 /* -- Totals -- */
@@ -491,13 +510,13 @@ body {
     .quotation-paper {
         box-shadow: none;
         margin: 0;
-        padding: 8mm 10mm;
+        padding: 4mm 5mm 3mm;
         width: 100%;
         min-height: auto;
     }
     @page {
         size: A4;
-        margin: 5mm;
+        margin: 3mm;
     }
 }
 
@@ -551,6 +570,71 @@ body {
     }
     .q-company-name { font-size: 11pt; }
     .q-totals-tbl .grand td { font-size: 10pt; }
+
+    /* Stack each line item into a compact, labeled card on phones. */
+    .items-table,
+    .items-table tbody {
+        display: block;
+        width: 100%;
+    }
+    .items-table thead {
+        display: none;
+    }
+    .items-table tbody tr {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: .35rem .55rem;
+        padding: .65rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin: .6rem .5rem;
+        background: #fff;
+    }
+    .items-table tbody td {
+        display: block;
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        text-align: left !important;
+    }
+    .items-table tbody td:nth-child(1) {
+        display: none;
+    }
+    .items-table tbody td:nth-child(2) {
+        grid-column: 1 / -1;
+    }
+    .items-table tbody td:nth-child(2) .item-name {
+        font-weight: 600;
+    }
+    .items-table tbody td:nth-child(2) .item-desc {
+        width: 100%;
+    }
+    .items-table tbody td:nth-child(3)::before,
+    .items-table tbody td:nth-child(4)::before,
+    .items-table tbody td:nth-child(5)::before,
+    .items-table tbody td:nth-child(6)::before,
+    .items-table tbody td:nth-child(7)::before {
+        display: block;
+        margin-bottom: .15rem;
+        color: var(--text-light);
+        font-size: .7rem;
+        font-weight: 600;
+    }
+    .items-table tbody td:nth-child(3)::before { content: 'MRP'; }
+    .items-table tbody td:nth-child(4)::before { content: 'Discount'; }
+    .items-table tbody td:nth-child(5)::before { content: 'Selling Price'; }
+    .items-table tbody td:nth-child(6)::before { content: 'Quantity'; }
+    .items-table tbody td:nth-child(7)::before { content: 'Amount'; }
+    .items-table tbody td:nth-child(4) .item-disc {
+        margin-top: .3rem !important;
+    }
+    .items-table tbody td:nth-child(6) .input-group {
+        width: 100%;
+    }
+    .items-table tbody td:nth-child(8) {
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
 }
 
 /* =======================================================
@@ -625,288 +709,5 @@ body {
 .nav-logout:hover {
     background-color: #fee2e2 !important;
     color: #b02a37 !important;
-}
-
-/* =======================================================
-   QUOTATION DOCUMENT DESIGN
-   ======================================================= */
-.quotation-paper {
-    padding: 12mm 12mm 9mm;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 9pt;
-    line-height: 1.4;
-    color: #17212b;
-}
-.q-top-row {
-    align-items: center;
-    margin-bottom: 2mm;
-}
-.q-title {
-    font-size: 15pt;
-    font-style: normal;
-    font-weight: 700;
-    letter-spacing: 2.2px;
-}
-.q-label {
-    color: #566273;
-    font-size: 7.5pt;
-    font-weight: 700;
-    letter-spacing: .8px;
-}
-.q-company-row {
-    align-items: center;
-    margin-bottom: 3mm;
-}
-.q-company-name {
-    font-size: 16pt;
-    letter-spacing: -.25px;
-    margin-bottom: 1mm;
-}
-.q-company-details {
-    color: #394656;
-    font-size: 8.25pt;
-    line-height: 1.45;
-}
-.q-logo {
-    width: 23mm;
-    height: 23mm;
-    padding: 1mm;
-}
-.q-sep {
-    border-top: 1.5px solid var(--primary);
-    margin: 3mm 0 4mm;
-}
-.q-meta {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
-    gap: 3mm;
-    margin: 0 0 4mm;
-    padding: 2.5mm 0;
-    border-bottom: 1px solid #dbe2ea;
-    font-size: 8.5pt;
-}
-.q-meta > div {
-    min-width: 0;
-}
-.q-meta-label {
-    display: block;
-    margin-bottom: .5mm;
-    color: #667386;
-    font-size: 7pt;
-    font-weight: 700;
-    letter-spacing: .45px;
-    text-transform: uppercase;
-}
-.q-meta strong {
-    overflow-wrap: anywhere;
-}
-.q-customer {
-    margin-bottom: 4mm;
-    font-size: 8.5pt;
-}
-.q-customer-label {
-    margin-bottom: 1mm;
-    color: #667386;
-    font-size: 7pt;
-    font-weight: 700;
-    letter-spacing: .45px;
-    text-transform: uppercase;
-}
-.q-customer-name {
-    font-size: 9pt;
-}
-.q-table {
-    font-size: 8pt;
-    line-height: 1.35;
-}
-.q-table thead {
-    display: table-header-group;
-    background: #f1f5fb;
-    color: #17212b;
-}
-.q-table thead th {
-    padding: 2mm 1.5mm;
-    border: 0;
-    border-top: 1.5px solid var(--primary);
-    border-bottom: 1px solid var(--primary);
-    font-size: 7.5pt;
-    font-weight: 700;
-    white-space: nowrap;
-}
-.q-table tbody tr:nth-child(even) {
-    background: #f6f8fb;
-}
-.q-table tbody tr {
-    break-inside: avoid;
-    page-break-inside: avoid;
-}
-.q-table tbody td {
-    padding: 2mm 1.5mm;
-    border: 0;
-    border-bottom: 1px solid #dce3eb;
-    vertical-align: top;
-}
-.q-table tbody td:first-child {
-    color: #536174;
-}
-.q-table tbody td:nth-last-child(-n+3) {
-    white-space: nowrap;
-}
-.q-table .desc-text {
-    margin-top: 1mm;
-    color: #3f4b59;
-    font-size: 7.6pt;
-    line-height: 1.38;
-}
-.q-totals-wrapper {
-    margin-top: 0;
-    border: 0;
-}
-.q-totals-tbl {
-    min-width: 67mm;
-    border-bottom: 1px solid #aeb9c7;
-}
-.q-totals-tbl td {
-    padding: 1.2mm 2mm;
-    font-size: 8.25pt;
-}
-.q-totals-tbl td:first-child {
-    color: #394656;
-    font-weight: 600;
-}
-.q-totals-tbl .grand td {
-    padding-top: 2mm;
-    border-top: 1.5px solid #17212b;
-    color: #17212b;
-    font-size: 12pt;
-}
-.q-summary {
-    gap: 1mm 5mm;
-    padding: 2mm 0;
-    border: 0;
-    border-bottom: 1px solid #dce3eb;
-    background: transparent;
-    color: #4e5a69;
-    font-size: 7.5pt;
-}
-#amountWords {
-    text-align: right;
-}
-.q-footer {
-    display: grid;
-    grid-template-columns: 25mm minmax(55mm, 1fr) minmax(38mm, .8fr);
-    gap: 5mm;
-    margin-top: 4mm;
-    padding-top: 3mm;
-    border-top: 1px solid #cbd4df;
-}
-.q-upi,
-.q-bank,
-.q-sig {
-    font-size: 7.7pt;
-}
-.q-upi {
-    color: #253244;
-    font-weight: 700;
-}
-.q-upi img {
-    width: 23mm;
-    height: 23mm;
-    object-fit: contain;
-}
-.q-bank-title {
-    margin-bottom: 1mm;
-    color: #253244;
-    font-size: 8.5pt;
-}
-.q-bank table {
-    width: 100%;
-}
-.q-bank table td {
-    padding: .5mm 1.5mm .5mm 0;
-    overflow-wrap: anywhere;
-}
-.q-bank table td:first-child {
-    color: #586576;
-    font-weight: 600;
-}
-.q-sig {
-    text-align: center;
-}
-.q-sig .sig-company {
-    min-height: 6mm;
-    margin-bottom: 1mm;
-    color: #394656;
-    font-size: 7.5pt;
-}
-.q-sig .sig-images {
-    min-height: 13mm;
-    margin: 1mm 0;
-}
-.q-sig .sig-images img {
-    max-width: 23mm;
-    max-height: 13mm;
-    object-fit: contain;
-}
-.q-sig .sig-label {
-    padding-top: 1.5mm;
-    border-top: 1px solid #9ba7b5;
-    color: #536174;
-    font-size: 7.25pt;
-    font-style: normal;
-}
-.q-notes {
-    margin-top: 4mm;
-    padding-top: 2.5mm;
-    border-top: 1px solid #dce3eb;
-    color: #394656;
-    font-size: 7.5pt;
-    line-height: 1.45;
-}
-.q-notes strong {
-    color: #253244;
-    font-size: 8pt;
-}
-.q-page-end {
-    margin-top: 4mm;
-    padding-top: 2mm;
-    border-top: 1px solid #cbd4df;
-    color: #647184;
-    font-size: 7pt;
-}
-
-@media print {
-    html, body {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-    .quotation-paper {
-        padding: 5mm 7mm;
-        width: 100%;
-    }
-    .q-footer,
-    .q-totals-wrapper,
-    .q-summary,
-    .q-notes {
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-    @page {
-        size: A4;
-        margin: 7mm;
-    }
-}
-
-@media (max-width: 767px) {
-    .q-meta {
-        grid-template-columns: 1fr;
-        gap: 2mm;
-    }
-    .q-footer {
-        grid-template-columns: 1fr 1fr;
-    }
-    .q-sig {
-        grid-column: 1 / -1;
-    }
 }
 
