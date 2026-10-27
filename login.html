@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Invoice & Quotation Generator</title>
+    <meta name="description" content="Password protected access for Invoice and Quotation Generator.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Immediate Authentication Check -->
+    <script src="js/auth.js"></script>
+</head>
+<body class="login-body">
+
+    <div class="login-card" id="loginCard">
+        <div class="login-header">
+            <div class="login-icon-badge">
+                <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <h4 class="fw-bold mb-1" style="color: var(--text-dark);">Protected Access</h4>
+            <p class="text-muted small mb-0">Enter the admin password to continue</p>
+        </div>
+
+        <div class="login-body-content">
+            <!-- Logout success banner -->
+            <div id="logoutNotice" class="alert alert-success py-2 px-3 small d-none" role="alert">
+                <i class="bi bi-check-circle-fill me-1"></i> You have logged out successfully.
+            </div>
+
+            <!-- Error alert -->
+            <div id="loginAlert" class="alert alert-danger py-2 px-3 small d-none" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-1"></i> <span id="alertMessage">Incorrect password. Please try again.</span>
+            </div>
+
+            <form id="loginForm" autocomplete="off">
+                <div class="mb-3">
+                    <label for="adminPassword" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi bi-key-fill text-muted"></i>
+                        </span>
+                        <input type="password" class="form-control border-start-0 border-end-0" id="adminPassword" placeholder="Enter admin password" required autofocus>
+                        <button class="btn btn-outline-secondary password-toggle-btn border-start-0" type="button" id="togglePasswordBtn" title="Show/Hide password">
+                            <i class="bi bi-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" checked>
+                    <label class="form-check-label small text-muted" for="rememberMe">Remember me on this browser</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2" id="submitBtn">
+                    <span id="btnText">Unlock & Continue</span>
+                    <i class="bi bi-arrow-right" id="btnIcon"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var params = new URLSearchParams(window.location.search);
+            var isLoggedOut = params.get('logged_out') === '1';
+            var logoutNotice = document.getElementById('logoutNotice');
+            var loginAlert = document.getElementById('loginAlert');
+            var loginForm = document.getElementById('loginForm');
+            var passwordInput = document.getElementById('adminPassword');
+            var toggleBtn = document.getElementById('togglePasswordBtn');
+            var toggleIcon = document.getElementById('toggleIcon');
+            var loginCard = document.getElementById('loginCard');
+            var submitBtn = document.getElementById('submitBtn');
+            var btnText = document.getElementById('btnText');
+            var btnIcon = document.getElementById('btnIcon');
+
+            if (isLoggedOut && logoutNotice) {
+                logoutNotice.classList.remove('d-none');
+            }
+
+            // Password visibility toggle
+            if (toggleBtn && passwordInput && toggleIcon) {
+                toggleBtn.addEventListener('click', function() {
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        toggleIcon.classList.remove('bi-eye');
+                        toggleIcon.classList.add('bi-eye-slash');
+                    } else {
+                        passwordInput.type = 'password';
+                        toggleIcon.classList.remove('bi-eye-slash');
+                        toggleIcon.classList.add('bi-eye');
+                    }
+                    passwordInput.focus();
+                });
+            }
+
+            // Form submission
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var password = passwordInput.value.trim();
+                    var remember = document.getElementById('rememberMe').checked;
+
+                    if (Auth.login(password, remember)) {
+                        // Success state
+                        loginAlert.classList.add('d-none');
+                        if (logoutNotice) logoutNotice.classList.add('d-none');
+                        submitBtn.classList.remove('btn-primary');
+                        submitBtn.classList.add('btn-success');
+                        btnText.textContent = 'Access Granted!';
+                        btnIcon.className = 'bi bi-check-lg';
+
+                        var target = params.get('returnUrl') || sessionStorage.getItem('invoice_gen_redirect_target') || 'index.html';
+                        sessionStorage.removeItem('invoice_gen_redirect_target');
+
+                        setTimeout(function() {
+                            window.location.replace(target);
+                        }, 250);
+                    } else {
+                        // Failed attempt
+                        loginAlert.classList.remove('d-none');
+                        loginCard.classList.remove('shake');
+                        void loginCard.offsetWidth; // trigger reflow
+                        loginCard.classList.add('shake');
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

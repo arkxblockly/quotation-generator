@@ -1,0 +1,912 @@
+/* ===== Variables ===== */
+:root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --primary-light: #e8f0fe;
+    --text-dark: #202124;
+    --text-mid: #3c4043;
+    --text-light: #5f6368;
+    --border: #dadce0;
+    --bg: #f8f9fa;
+    --white: #ffffff;
+}
+
+/* ===== Base ===== */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-dark);
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    background-color: var(--white) !important;
+    border-bottom: 1px solid var(--border);
+    padding: .6rem 0;
+}
+.navbar-brand {
+    font-weight: 600;
+    color: var(--primary) !important;
+    font-size: 1.2rem;
+    gap: .4rem;
+    display: flex;
+    align-items: center;
+}
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+    font-size: .9rem;
+    padding: .45rem .9rem !important;
+    border-radius: 6px;
+    transition: .2s;
+}
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary) !important;
+    background-color: var(--primary-light);
+}
+
+/* ===== Cards ===== */
+.card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: none;
+}
+.card-header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: .9rem;
+    padding: .75rem 1.1rem;
+    color: var(--text-dark);
+}
+
+/* ===== Forms ===== */
+.form-label {
+    font-weight: 500;
+    font-size: .8125rem;
+    color: var(--text-light);
+    margin-bottom: .2rem;
+}
+.form-control,
+.form-select {
+    border-color: var(--border);
+    border-radius: 6px;
+    font-size: .875rem;
+    padding: .45rem .7rem;
+}
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26,115,232,.12);
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    border-radius: 6px;
+    font-weight: 500;
+}
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+    border-radius: 6px;
+}
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+/* ===== Page header ===== */
+.page-header {
+    padding: 1.2rem 0 .8rem;
+}
+.page-header h4 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* ===== Upload area ===== */
+.upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+    background: var(--bg);
+}
+.upload-area:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+.upload-area i {
+    font-size: 1.4rem;
+    color: var(--text-light);
+}
+.upload-area p {
+    margin: .35rem 0 0;
+    font-size: .8rem;
+    color: var(--text-light);
+}
+.image-preview {
+    margin-top: .5rem;
+}
+.image-preview img {
+    max-height: 80px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+/* ===== Items table ===== */
+.items-table {
+    font-size: .85rem;
+    margin: 0;
+}
+.items-table thead {
+    background-color: var(--primary);
+    color: #fff;
+}
+.items-table thead th {
+    font-weight: 500;
+    padding: .55rem .5rem;
+    white-space: nowrap;
+    border: none;
+    font-size: .8rem;
+}
+.items-table tbody td {
+    vertical-align: middle;
+    padding: .45rem .4rem;
+}
+
+/* ===== Totals ===== */
+.totals-section {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: .8rem 1rem;
+    border: 1px solid var(--border);
+}
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: .3rem 0;
+    font-size: .875rem;
+}
+.total-row.grand-total {
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-top: 2px solid var(--primary);
+    padding-top: .5rem;
+    margin-top: .25rem;
+    color: var(--primary);
+}
+
+/* ===== Settings Warning ===== */
+.settings-warning {
+    background: #fff3cd;
+    border: 1px solid #ffecb5;
+    border-radius: 8px;
+    padding: .65rem 1rem;
+    font-size: .875rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.settings-warning i {
+    color: #856404;
+}
+
+/* ===== Toast ===== */
+.toast-container {
+    z-index: 9999;
+}
+
+/* =======================================================
+   PREVIEW PAGE
+   ======================================================= */
+.preview-page {
+    background: #d0d0d0;
+    min-height: 100vh;
+    padding: 1.5rem 0 3rem;
+}
+.preview-toolbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: .65rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== A4 Paper ===== */
+.quotation-paper {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    margin: 0 auto;
+    padding: 14mm 16mm 10mm;
+    box-shadow: 0 2px 12px rgba(0,0,0,.18);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #000;
+    line-height: 1.5;
+}
+
+/* -- Header -- */
+.q-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: .15rem;
+}
+.q-title {
+    font-size: 13pt;
+    color: var(--primary);
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+}
+.q-label {
+    font-size: 8.5pt;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.q-company-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: .5rem;
+}
+.q-company-name {
+    font-size: 15pt;
+    font-weight: 700;
+    margin-bottom: .1rem;
+    color: #000;
+}
+.q-company-details {
+    font-size: 8.5pt;
+    color: #333;
+    line-height: 1.7;
+}
+.q-logo {
+    width: 68px;
+    height: 68px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.q-sep {
+    border: none;
+    border-top: 2px solid var(--primary);
+    margin: .6rem 0;
+}
+
+/* -- Meta -- */
+.q-meta {
+    display: flex;
+    gap: 2rem;
+    font-size: 9pt;
+    margin-bottom: .6rem;
+    flex-wrap: wrap;
+}
+.q-meta strong {
+    color: #000;
+}
+
+/* -- Customer -- */
+.q-customer {
+    margin-bottom: .7rem;
+    font-size: 9pt;
+}
+.q-customer-label {
+    color: var(--text-light);
+    font-size: 8.5pt;
+    margin-bottom: .1rem;
+}
+.q-customer-name {
+    font-weight: 600;
+    font-size: 9.5pt;
+}
+
+/* -- Table -- */
+.q-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+}
+.q-table thead {
+    background: var(--primary);
+    color: #fff;
+}
+.q-table thead th {
+    padding: 5px 7px;
+    font-weight: 500;
+    border: 1px solid var(--primary);
+}
+.q-table tbody td {
+    padding: 6px 7px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+}
+.q-table .desc-text {
+    font-size: 8pt;
+    color: #444;
+    margin-top: 2px;
+    line-height: 1.45;
+}
+
+/* -- Totals -- */
+.q-totals-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+.q-totals-tbl {
+    min-width: 240px;
+}
+.q-totals-tbl td {
+    padding: 3px 10px;
+    font-size: 9pt;
+}
+.q-totals-tbl td:last-child {
+    text-align: right;
+    font-weight: 500;
+}
+.q-totals-tbl .grand td {
+    font-size: 11.5pt;
+    font-weight: 700;
+    border-top: 1px solid #333;
+    padding-top: 5px;
+}
+
+/* -- Summary row -- */
+.q-summary {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 3px 7px;
+    background: #fafafa;
+    flex-wrap: wrap;
+    gap: .25rem;
+}
+
+/* -- Footer -- */
+.q-footer {
+    display: flex;
+    gap: .75rem;
+    margin-top: 1.2rem;
+    padding-top: .8rem;
+    border-top: 1px solid #ddd;
+    align-items: flex-start;
+}
+.q-upi {
+    flex: 0 0 auto;
+    font-size: 8pt;
+    font-weight: 600;
+}
+.q-upi img {
+    width: 75px;
+    height: 75px;
+    display: block;
+    margin-top: 3px;
+}
+.q-bank {
+    flex: 1;
+    font-size: 8.5pt;
+}
+.q-bank-title {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.q-bank table td {
+    padding: 1px 6px 1px 0;
+    vertical-align: top;
+}
+.q-bank table td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+}
+.q-sig {
+    flex: 0 0 180px;
+    text-align: right;
+    font-size: 8.5pt;
+}
+.q-sig .sig-company {
+    font-size: 8pt;
+    color: #444;
+    margin-bottom: .5rem;
+}
+.q-sig .sig-images {
+    min-height: 40px;
+    margin: .3rem 0;
+}
+.q-sig .sig-images img {
+    max-height: 40px;
+    vertical-align: bottom;
+}
+.q-sig .sig-images img + img {
+    margin-left: .5rem;
+}
+.q-sig .sig-label {
+    font-size: 8pt;
+    font-style: italic;
+    color: #555;
+}
+
+/* -- Notes -- */
+.q-notes {
+    margin-top: .8rem;
+    font-size: 8pt;
+    color: #333;
+    line-height: 1.6;
+}
+.q-notes strong {
+    display: block;
+    margin-bottom: .15rem;
+    font-size: 8.5pt;
+}
+
+/* -- Page bottom -- */
+.q-page-end {
+    font-size: 7.5pt;
+    color: #888;
+    margin-top: .7rem;
+    padding-top: .4rem;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* =======================================================
+   PRINT
+   ======================================================= */
+@media print {
+    .preview-toolbar,
+    .no-print {
+        display: none !important;
+    }
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+    }
+    .preview-page {
+        background: #fff;
+        padding: 0;
+    }
+    .quotation-paper {
+        box-shadow: none;
+        margin: 0;
+        padding: 8mm 10mm;
+        width: 100%;
+        min-height: auto;
+    }
+    @page {
+        size: A4;
+        margin: 5mm;
+    }
+}
+
+/* =======================================================
+   RESPONSIVE
+   ======================================================= */
+@media (max-width: 991px) {
+    .quotation-paper {
+        width: 100%;
+        min-height: auto;
+        padding: 5mm;
+        font-size: 8.5pt;
+    }
+    .q-company-name { font-size: 12pt; }
+    .q-logo { width: 50px; height: 50px; }
+}
+
+@media (max-width: 767px) {
+    .quotation-paper {
+        padding: 4mm;
+        margin: 0 .5rem;
+    }
+    .q-meta {
+        flex-direction: column;
+        gap: .15rem;
+    }
+    .q-footer {
+        flex-direction: column;
+    }
+    .q-sig {
+        flex: none;
+        text-align: left;
+    }
+    .q-summary {
+        flex-direction: column;
+    }
+    .card-body {
+        padding: .7rem;
+    }
+    .items-table {
+        font-size: .75rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .page-header h4 {
+        font-size: 1.05rem;
+    }
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .q-company-name { font-size: 11pt; }
+    .q-totals-tbl .grand td { font-size: 10pt; }
+}
+
+/* =======================================================
+   LOGIN & AUTH STYLES
+   ======================================================= */
+.login-body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f4f9 0%, #e2ecf9 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(26, 115, 232, 0.08);
+    overflow: hidden;
+}
+
+.login-header {
+    text-align: center;
+    padding: 2rem 1.5rem 1rem;
+}
+
+.login-icon-badge {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 1rem;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+}
+
+.login-body-content {
+    padding: 0 1.5rem 2rem;
+}
+
+.password-toggle-btn {
+    border-color: var(--border);
+    background: var(--white);
+    color: var(--text-light);
+}
+
+.password-toggle-btn:hover {
+    background: var(--bg);
+    color: var(--text-dark);
+}
+
+.shake {
+    animation: shakeAnim 0.4s ease-in-out;
+}
+
+@keyframes shakeAnim {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+.nav-logout {
+    color: #dc3545 !important;
+}
+.nav-logout:hover {
+    background-color: #fee2e2 !important;
+    color: #b02a37 !important;
+}
+
+/* =======================================================
+   QUOTATION DOCUMENT DESIGN
+   ======================================================= */
+.quotation-paper {
+    padding: 12mm 12mm 9mm;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    line-height: 1.4;
+    color: #17212b;
+}
+.q-top-row {
+    align-items: center;
+    margin-bottom: 2mm;
+}
+.q-title {
+    font-size: 15pt;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+}
+.q-label {
+    color: #566273;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: .8px;
+}
+.q-company-row {
+    align-items: center;
+    margin-bottom: 3mm;
+}
+.q-company-name {
+    font-size: 16pt;
+    letter-spacing: -.25px;
+    margin-bottom: 1mm;
+}
+.q-company-details {
+    color: #394656;
+    font-size: 8.25pt;
+    line-height: 1.45;
+}
+.q-logo {
+    width: 23mm;
+    height: 23mm;
+    padding: 1mm;
+}
+.q-sep {
+    border-top: 1.5px solid var(--primary);
+    margin: 3mm 0 4mm;
+}
+.q-meta {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 3mm;
+    margin: 0 0 4mm;
+    padding: 2.5mm 0;
+    border-bottom: 1px solid #dbe2ea;
+    font-size: 8.5pt;
+}
+.q-meta > div {
+    min-width: 0;
+}
+.q-meta-label {
+    display: block;
+    margin-bottom: .5mm;
+    color: #667386;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: .45px;
+    text-transform: uppercase;
+}
+.q-meta strong {
+    overflow-wrap: anywhere;
+}
+.q-customer {
+    margin-bottom: 4mm;
+    font-size: 8.5pt;
+}
+.q-customer-label {
+    margin-bottom: 1mm;
+    color: #667386;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: .45px;
+    text-transform: uppercase;
+}
+.q-customer-name {
+    font-size: 9pt;
+}
+.q-table {
+    font-size: 8pt;
+    line-height: 1.35;
+}
+.q-table thead {
+    display: table-header-group;
+    background: #f1f5fb;
+    color: #17212b;
+}
+.q-table thead th {
+    padding: 2mm 1.5mm;
+    border: 0;
+    border-top: 1.5px solid var(--primary);
+    border-bottom: 1px solid var(--primary);
+    font-size: 7.5pt;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.q-table tbody tr:nth-child(even) {
+    background: #f6f8fb;
+}
+.q-table tbody tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.q-table tbody td {
+    padding: 2mm 1.5mm;
+    border: 0;
+    border-bottom: 1px solid #dce3eb;
+    vertical-align: top;
+}
+.q-table tbody td:first-child {
+    color: #536174;
+}
+.q-table tbody td:nth-last-child(-n+3) {
+    white-space: nowrap;
+}
+.q-table .desc-text {
+    margin-top: 1mm;
+    color: #3f4b59;
+    font-size: 7.6pt;
+    line-height: 1.38;
+}
+.q-totals-wrapper {
+    margin-top: 0;
+    border: 0;
+}
+.q-totals-tbl {
+    min-width: 67mm;
+    border-bottom: 1px solid #aeb9c7;
+}
+.q-totals-tbl td {
+    padding: 1.2mm 2mm;
+    font-size: 8.25pt;
+}
+.q-totals-tbl td:first-child {
+    color: #394656;
+    font-weight: 600;
+}
+.q-totals-tbl .grand td {
+    padding-top: 2mm;
+    border-top: 1.5px solid #17212b;
+    color: #17212b;
+    font-size: 12pt;
+}
+.q-summary {
+    gap: 1mm 5mm;
+    padding: 2mm 0;
+    border: 0;
+    border-bottom: 1px solid #dce3eb;
+    background: transparent;
+    color: #4e5a69;
+    font-size: 7.5pt;
+}
+#amountWords {
+    text-align: right;
+}
+.q-footer {
+    display: grid;
+    grid-template-columns: 25mm minmax(55mm, 1fr) minmax(38mm, .8fr);
+    gap: 5mm;
+    margin-top: 4mm;
+    padding-top: 3mm;
+    border-top: 1px solid #cbd4df;
+}
+.q-upi,
+.q-bank,
+.q-sig {
+    font-size: 7.7pt;
+}
+.q-upi {
+    color: #253244;
+    font-weight: 700;
+}
+.q-upi img {
+    width: 23mm;
+    height: 23mm;
+    object-fit: contain;
+}
+.q-bank-title {
+    margin-bottom: 1mm;
+    color: #253244;
+    font-size: 8.5pt;
+}
+.q-bank table {
+    width: 100%;
+}
+.q-bank table td {
+    padding: .5mm 1.5mm .5mm 0;
+    overflow-wrap: anywhere;
+}
+.q-bank table td:first-child {
+    color: #586576;
+    font-weight: 600;
+}
+.q-sig {
+    text-align: center;
+}
+.q-sig .sig-company {
+    min-height: 6mm;
+    margin-bottom: 1mm;
+    color: #394656;
+    font-size: 7.5pt;
+}
+.q-sig .sig-images {
+    min-height: 13mm;
+    margin: 1mm 0;
+}
+.q-sig .sig-images img {
+    max-width: 23mm;
+    max-height: 13mm;
+    object-fit: contain;
+}
+.q-sig .sig-label {
+    padding-top: 1.5mm;
+    border-top: 1px solid #9ba7b5;
+    color: #536174;
+    font-size: 7.25pt;
+    font-style: normal;
+}
+.q-notes {
+    margin-top: 4mm;
+    padding-top: 2.5mm;
+    border-top: 1px solid #dce3eb;
+    color: #394656;
+    font-size: 7.5pt;
+    line-height: 1.45;
+}
+.q-notes strong {
+    color: #253244;
+    font-size: 8pt;
+}
+.q-page-end {
+    margin-top: 4mm;
+    padding-top: 2mm;
+    border-top: 1px solid #cbd4df;
+    color: #647184;
+    font-size: 7pt;
+}
+
+@media print {
+    html, body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .quotation-paper {
+        padding: 5mm 7mm;
+        width: 100%;
+    }
+    .q-footer,
+    .q-totals-wrapper,
+    .q-summary,
+    .q-notes {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    @page {
+        size: A4;
+        margin: 7mm;
+    }
+}
+
+@media (max-width: 767px) {
+    .q-meta {
+        grid-template-columns: 1fr;
+        gap: 2mm;
+    }
+    .q-footer {
+        grid-template-columns: 1fr 1fr;
+    }
+    .q-sig {
+        grid-column: 1 / -1;
+    }
+}
+

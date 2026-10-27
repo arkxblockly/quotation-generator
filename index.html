@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quotation — Invoice Generator</title>
+    <meta name="description" content="Create professional quotations and invoices with ease.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Immediate Authentication Check -->
+    <script src="js/auth.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-receipt-cutoff"></i> Quotation Gen
+            </a>
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html"><i class="bi bi-plus-circle"></i> Create</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="settings.html"><i class="bi bi-gear"></i> Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-logout" href="javascript:void(0)" onclick="Auth.logout()" title="Logout"><i
+                            class="bi bi-box-arrow-right"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container py-3">
+
+        <!-- Settings warning -->
+        <div id="settingsWarning" class="settings-warning" style="display:none">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span><strong>Setup required</strong> — <a href="settings.html">Configure company details</a> before
+                creating quotations.</span>
+        </div>
+
+        <!-- Page header -->
+        <div class="page-header">
+            <h4><i class="bi bi-file-earmark-text"></i> New Quotation</h4>
+        </div>
+
+        <!-- Document details -->
+        <div class="card mb-3">
+            <div class="card-header">Document Details</div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4 col-sm-6">
+                        <label class="form-label" for="quotationNumber">Quotation ID *</label>
+                        <input type="text" class="form-control" id="quotationNumber" placeholder="e.g. QT-2026-001" required>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <label class="form-label" for="quotationDate">Date</label>
+                        <input type="date" class="form-control" id="quotationDate">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-label" for="validityDate">Validity</label>
+                        <input type="date" class="form-control" id="validityDate">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer details -->
+        <div class="card mb-3">
+            <div class="card-header">Customer Details</div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label" for="customerName">Customer Name *</label>
+                        <input type="text" class="form-control" id="customerName"
+                            placeholder="e.g. John Doe / Client Name">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="customerCompany">Company / Note</label>
+                        <input type="text" class="form-control" id="customerCompany"
+                            placeholder="e.g. Horizon Enterprises / Billing Dept">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Line items -->
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Line Items</span>
+                <button type="button" class="btn btn-sm btn-primary" id="addItemBtn">
+                    <i class="bi bi-plus-lg"></i> Add Item
+                </button>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table items-table mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width:40px">#</th>
+                                <th>Item</th>
+                                <th style="width:105px">MRP (₹)</th>
+                                <th style="width:130px">Discount</th>
+                                <th style="width:100px">Selling Price</th>
+                                <th style="width:138px">Qty</th>
+                                <th style="width:100px">Amount</th>
+                                <th style="width:38px"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Totals -->
+        <div class="row mb-3">
+            <div class="col-md-5 col-sm-7 ms-auto">
+                <div class="totals-section">
+                    <div class="total-row">
+                        <span>Total MRP</span>
+                        <span id="totalMRP">₹0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Total Discount</span>
+                        <span id="totalDiscount">₹0.00</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total</span>
+                        <span id="grandTotal">₹0.00</span>
+                    </div>
+                </div>
+                <div class="text-muted small mt-1 ms-1" id="itemCount">Total Items: 0 / Qty: 0</div>
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="card mb-3">
+            <div class="card-header">Notes <span class="text-muted fw-normal">(optional)</span></div>
+            <div class="card-body">
+                <textarea class="form-control" id="notes" rows="4"
+                    placeholder="Enter custom terms & conditions, delivery timeline, or payment instructions..."></textarea>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-flex gap-2 mb-4 flex-wrap">
+            <button type="button" class="btn btn-primary" id="previewBtn">
+                <i class="bi bi-eye"></i> Preview &amp; Print
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="clearBtn">
+                <i class="bi bi-arrow-counterclockwise"></i> Clear All
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
